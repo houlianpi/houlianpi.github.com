@@ -4,7 +4,7 @@
   <title><![CDATA[厚脸皮说移动测试]]></title>
   <link href="http://houlianpi.github.com/atom.xml" rel="self"/>
   <link href="http://houlianpi.github.com/"/>
-  <updated>2013-01-18T01:18:38+08:00</updated>
+  <updated>2013-05-08T23:28:27+08:00</updated>
   <id>http://houlianpi.github.com/</id>
   <author>
     <name><![CDATA[mijun(厚脸皮)]]></name>
@@ -12,5 +12,28 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[octopress]]></title>
+    <link href="http://houlianpi.github.com/blog/2013/05/08/octopress/"/>
+    <updated>2013-05-08T23:01:00+08:00</updated>
+    <id>http://houlianpi.github.com/blog/2013/05/08/octopress</id>
+    <content type="html"><![CDATA[<h1>Octopress的使用</h1>
+
+<p>老早以前就有写blog的想法，当时觉得好麻烦的呀，慢慢的觉得好像也还好了。</p>
+
+<p>这个blog需要写点移动测试方面的东西，会写一些经过验证的一些东西当然也会有很多跳入坑的经验。</p>
+
+<p>写blog主要以下几点内容：</p>
+
+<h4>1 自己亲手做过的东西，成功或者失败无所谓，但是过程应该被记录下来</h4>
+
+<h4>2 自己需要记录存底的一些东西</h4>
+
+<h4>3 吐槽移动测试工具</h4>
+
+<p>呵呵，其实这一边blog就是一个试验品，想让自动能尽快的熟练使用Octopress。</p>
+]]></content>
+  </entry>
   
 </feed>
