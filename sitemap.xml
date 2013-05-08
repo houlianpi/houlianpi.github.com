@@ -1,23 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://houlianpi.github.com/blog/2013/05/08/octopress/</loc>
-        <lastmod>2013-05-08T23:13:28+08:00</lastmod>
+        <loc>http://houlianpi.github.com/blog/octopress.html</loc>
+        <lastmod>2013-05-09T00:02:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://houlianpi.github.com/blog/archives/</loc>
-        <lastmod>2013-05-08T23:13:28+08:00</lastmod>
+        <lastmod>2013-05-09T00:02:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://houlianpi.github.com/blog/</loc>
-        <lastmod>2013-05-08T23:13:28+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://houlianpi.github.com/</loc>
-        <lastmod>2013-05-08T23:13:28+08:00</lastmod>
+        <lastmod>2013-05-09T00:02:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://houlianpi.github.com/robots.txt</loc>
-        <lastmod>2013-01-17T18:33:06+08:00</lastmod>
+        <lastmod>2013-05-09T00:02:51+08:00</lastmod>
     </url>
 </urlset>
