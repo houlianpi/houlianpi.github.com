@@ -1,13 +1,11 @@
 ---
 layout: post
-title: "octopress"
+title: "才开始写Blog"
 date: 2013-05-08 23:01
 comments: true
 author: 芈峮
 categories: 
 ---
-才开始写Blog
-====
 
 是的，才开始写Blog。之前一直想写，这样可以沉淀一些东西，但是一直没写。
 
