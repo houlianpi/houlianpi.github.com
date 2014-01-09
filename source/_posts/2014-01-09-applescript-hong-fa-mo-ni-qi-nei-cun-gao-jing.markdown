@@ -12,7 +12,7 @@ categories: iOS simulator MemoryWarning AppleScript
 
 调试AppleScript。在[stackoverflow](http://stackoverflow.com/questions/2784892/simulate-memory-warnings-from-the-code-possible "Title") 中，可以找到OC和AppleScript版本的内存告警实现。其中AppleScript的实现为：
 
-``` applescript AppleScript Tricks start:1
+``` applescript AppleScript simulate memory warning
 tell application "System Events"
 	tell process "iPhone Simulator"
 		tell menu bar 1
@@ -28,7 +28,7 @@ end tell
 
 简单的调试发现不稳定，最好加入一下代码：
 
-``` applescript AppleScript Tricks start:1
+``` applescript AppleScript make sure iphone simulator activate
 tell application "iPhone Simulator"
 	activate
 end tell
@@ -37,7 +37,7 @@ end tell
 
 之前的脚本只能支持英文版操作系统，为了兼容中文操作系统，再次加入代码：
 
-``` applescript AppleScript Tricks start:1
+``` applescript AppleScript get os language & simulate memory warning
 on get_language()
 	return user locale of (get system info)
 end get_language
@@ -65,7 +65,7 @@ end tell
 
 保存好文件以后，放入固定的路径，使用UI Automation调用，可以参考一下代码：
 
-``` javascript JavaScript Tricks start:1
+``` javascript JavaScript UI Automation 
 simulateMemoryWarning: function(){
     var target = UIATarget.localTarget(); 
     var host = target.host();
@@ -80,7 +80,7 @@ simulateMemoryWarning: function(){
 
 好的，功能就做完了。还算顺利，但是如果你是一个geek的话，会觉得之前的AppleScript中有一段很蛋疼的代码。没错我也觉得蛋疼，并且有些老外也觉得蛋疼，所以有一个现成的函数可以使用：
 
-``` applescript AppleScript Tricks start:1
+``` applescript AppleScript use menu_click function
 on menu_click(mList)	local appName, topMenu, r	-- Validate our input	if mList's length < 3 then error "Menu list is not long enough"	-- Set these variables for clarity and brevity later on	set {appName, topMenu} to (items 1 through 2 of mList)	set r to (items 3 through (mList's length) of mList)	-- This overly-long line calls the menu_recurse function with	-- two arguments: r, and a reference to the top-level menu	tell application "System Events" to my menu_click_recurse(r, ((process appName)'s ¬		(menu bar 1)'s (menu bar item topMenu)'s (menu topMenu)))end menu_clickon menu_click_recurse(mList, parentObject)	local f, r	-- `f` = first item, `r` = rest of items	set f to item 1 of mList	if mList's length > 1 then set r to (items 2 through (mList's length) of mList)	-- either actually click the menu item, or recurse again	tell application "System Events"		if mList's length is 1 then			click parentObject's menu item f		else			my menu_click_recurse(r, (parentObject's (menu item f)'s (menu f)))		end if	end tellend menu_click_recursetell application "iPhone Simulator"	activateend tellmenu_click({"iPhone Simulator", "硬件", "模拟内存警告"})
 ```
 
