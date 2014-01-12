@@ -25,13 +25,13 @@ footer: true
 
 *   2011年3月12日BQConf大会-JavaScriptAPI自动化测试
 
-	<iframe height=498 width=510 src="http://player.youku.com/embed/XMjU2NzAyNTMy" frameborder=0 allowfullscreen></iframe>
+	<iframe height=500 width=750 src="http://player.youku.com/embed/XMjU2NzAyNTMy" frameborder=0 allowfullscreen></iframe>
 
 	ps:我很喜欢这个，那个时候身材还不错，分享时紧张的要死。
 
 *   阿里技术嘉年华 2012<豆瓣ios自动化测试实践和经验>
 
-	<iframe height=498 width=510 src="http://player.youku.com/embed/XNDM0NDg5MzIw" frameborder=0 allowfullscreen></iframe>
+	<iframe height=500 width=750 src="http://player.youku.com/embed/XNDM0NDg5MzIw" frameborder=0 allowfullscreen></iframe>
 
 *   阿里技术嘉年华 2013 iOS WebApp自动化测试
 
