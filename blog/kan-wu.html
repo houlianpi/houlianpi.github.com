@@ -1,0 +1,367 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>勘误一 - 厚脸皮说测试</title>
+  <meta name="author" content="mijun(厚脸皮)">
+
+  
+  <meta name="description" content="《iOS测试指南》出版并且上市已经有一个月的时间了。随着该书陆续的与读者见面，一些隐藏着的小错误也慢慢浮出水面。在这里先简单的说明一下，截止到现在笔者所知的一些书内的错误。 Byte 和 bit的区别 Byte和bit是有区别，8个bit是一个Byte。一般说文件大小的时候，单位是Byte。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://houlianpi.github.com/blog/kan-wu.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="厚脸皮说测试" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-47053050-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">厚脸皮说测试</a></h1>
+  
+    <h2>在这里我们只说测试</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:houlianpi.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about-me">About me</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">勘误一</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-01T21:00:00+08:00" pubdate data-updated="true">Jun 1<span>st</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>《iOS测试指南》出版并且上市已经有一个月的时间了。随着该书陆续的与读者见面，一些隐藏着的小错误也慢慢浮出水面。在这里先简单的说明一下，截止到现在笔者所知的一些书内的错误。</p>
+
+<h3>Byte 和 bit的区别</h3>
+
+<p>Byte和bit是有区别，8个bit是一个Byte。一般说文件大小的时候，单位是Byte。说网络带宽时一般使用bit。在《iOS测试指南》的125页中，在描述几种手机上网带宽时，写错了，网络带宽的地址。</p>
+
+<p>书中原始如图所示，这里应该使用 kb，来表示网络带宽，并不是使用KB。
+<img src="http://ww3.sinaimg.cn/mw690/9d98efcctw1egywk2uikxj21cq0hagpm.jpg" title="125页中错误截图" alt="alt text" /></p>
+
+<p>非常抱歉，一个简单的疏忽就让网络带宽原地提高了8倍，真可谓差之毫厘，失之千里。</p>
+
+<h3>千万不要去Copy代码</h3>
+
+<p>我在写《iOS测试指南》的过程中，书稿经过了好几次修改，但是依然还是能发现一些错别字。文字功底已经没有办法挽回了，只能认真的把实例代码写好了。所以，我都很认真的写着示例代码。保证所有的代码都是运行过，并且没有问题的才写进到书中。“代码运行过，不代表没有问题。”这是测试工程师经常拿来教育开发工程师的话，自己也犯错误了。</p>
+
+<p>在书中的第43页，有一段代码中的注释有问题。</p>
+
+<p><img src="http://ww1.sinaimg.cn/mw690/9d98efcctw1egywk3rum6j21k00umn85.jpg" title="43页中错误截图" alt="alt text" /></p>
+
+<p>注释写错了，很明显这不是一个笔误。这是一个复制之后没有修改完全的错误。在编写代码的过程中千万不要去Copy代码。没有Copy就没有低级错误。</p>
+
+<h3>iOS 7的改动带来的问题</h3>
+
+<p>在本书中使用了很多次Recipse程序，Recipse程序是官方文档中用来介绍UI Automation的示例程序。本书的第八章介绍KIF时，也是使用了Recipse程序来完成一些功能测试。当需要删除Recipse程序中的菜单时，系统提供的TableViewCell会有删除确认。但是那个确认的按钮的一些属性有些变化。如图所示。</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/9d98efcctw1egyy44qotaj21z41721kx.jpg" title="删除确认截图" alt="alt text" /></p>
+
+<p>图中红框内的属性和iOS 6中的属性已经有所变化。</p>
+
+<p>在 iOS 7.0以上的版本，删除确认按钮的属性是 Delete。但是在iOS 6或者5中，删除确认按钮的属性是 Confirm Deletion for xxx（xxx 是 TableCell的name属性）</p>
+
+<p>所以为了测试能在iOS所有的系统上都能完美的运行，代码可以这样修改：</p>
+
+<figure class='code'><figcaption><span>Objective-C</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="c1">//点击删除确认按钮</span>
+</span><span class='line'><span class="k">if</span> <span class="p">([[[</span><span class="n">UIDevice</span> <span class="n">currentDevice</span><span class="p">]</span> <span class="n">systemVersion</span><span class="p">]</span> <span class="n">floatValue</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">7.0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">tester</span> <span class="nl">tapViewWithAccessibilityLabel:</span><span class="s">@&quot;Confirm Deletion for aaa&quot;</span>
+</span><span class='line'>                                   <span class="nl">traits:</span><span class="n">UIAccessibilityTraitButton</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">tester</span> <span class="nl">tapViewWithAccessibilityLabel:</span><span class="s">@&quot;Delete&quot;</span>
+</span><span class='line'>                                   <span class="nl">traits:</span><span class="n">UIAccessibilityTraitButton</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当然，因为属性是很多自动化测试工具都要用到的，所以，大家在iOS6升级到iOS7时都会有这个问题。当你使用的UI Automation的时候，也会遇到这个问题。当然，在UI Automation的时候，还有更大的一个问题。在iOS 7系统中，由于Apple公司的问题，导致UI Automation的所有滑动操作无效。</p>
+
+<p>由于iOS7中滑动操作无效，所以，只能使用别的操作路径来进行删除。</p>
+
+<p>完整的代码如下：</p>
+
+<figure class='code'><figcaption><span>JavaScript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;删除刚才添加的饺子菜单，通过判断总菜单数量的变化来判断测试是否成功&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>        <span class="nx">oldCellsLength</span> <span class="o">=</span> <span class="nx">Finder</span><span class="p">.</span><span class="nx">findElementByName</span><span class="p">(</span><span class="s2">&quot;Empty list&quot;</span><span class="p">).</span><span class="nx">cells</span><span class="p">().</span><span class="nx">length</span>
+</span><span class='line'>        <span class="nx">Finder</span><span class="p">.</span><span class="nx">findElementByName</span><span class="p">(</span><span class="s2">&quot;Edit&quot;</span><span class="p">).</span><span class="nx">tap</span><span class="p">();</span>
+</span><span class='line'>        <span class="nx">Finder</span><span class="p">.</span><span class="nx">findElementByName</span><span class="p">(</span><span class="s2">&quot;Delete 饺子&quot;</span><span class="p">).</span><span class="nx">tap</span><span class="p">();</span>
+</span><span class='line'>        <span class="nx">Finder</span><span class="p">.</span><span class="nx">findElementByName</span><span class="p">(</span><span class="s2">&quot;饺子&quot;</span><span class="p">).</span><span class="nx">buttons</span><span class="p">()[</span><span class="mi">0</span><span class="p">].</span><span class="nx">tap</span><span class="p">();</span>
+</span><span class='line'>        <span class="nx">newCellsLength</span> <span class="o">=</span> <span class="nx">Finder</span><span class="p">.</span><span class="nx">findElementsByClassType</span><span class="p">(</span><span class="s2">&quot;TableCell&quot;</span><span class="p">).</span><span class="nx">length</span>
+</span><span class='line'>        <span class="nx">assertEquals</span><span class="p">(</span><span class="nx">newCellsLength</span><span class="p">,</span><span class="nx">oldCellsLength</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上两处需要进行代码更改的地方，都是Apple升级iOS7以后，需要针对iOS7进行的一些容错处理。需要容错的主要由2处：</p>
+
+<ol>
+<li><p>iOS 7 中 TableCells中自带的删除按钮的Accessbility属性发生了变化。有原来的 “Confirm Deletion for xxx（xxx 是 TableCell的name属性）” 变化为  “Delete”。</p></li>
+<li><p>UI Autoamtion的所有滑动相关的手势无效。</p></li>
+</ol>
+
+
+<p>针对以上的内容需要进行iOS7相关的适配。适配方法请仔细阅读代码。《iOS测试指南》出版的时候，iOS7已经发了，但是未能对iOS7中的内容进行全面的兼容，在此表示深深的歉意。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">mijun(厚脸皮)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-01T21:00:00+08:00" pubdate data-updated="true">Jun 1<span>st</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/-ios测试指南-勘误一/'>《iOS测试指南》勘误一</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+  
+       
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+<a class="jiathis_button_tsina"></a>
+<a class="jiathis_button_douban"></a>
+<a class="jiathis_button_weixin"></a>
+<a class="jiathis_button_douban9dian"></a>
+<a href="http://www.jiathis.com/share?uid=1886913" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+	data_track_clickback:true,
+	summary:"",
+	shortUrl:false,
+	hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1886913" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+  
+   
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/ios-testframework.html" title="Previous Post: 这些年用过的iOS测试框架">&laquo; 这些年用过的iOS测试框架</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/kan-wu.html">勘误一</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ios-testframework.html">这些年用过的iOS测试框架</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/applescript-hong-fa-mo-ni-qi-nei-cun-gao-jing.html">UI Automation 中触发iOS模拟器内存警告</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/octopress.html">才开始写Blog</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/houlianpi">@houlianpi</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'houlianpi',
+            count: 4,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <ul id="weibo">
+    <li>
+      <iframe width="100%" height="200" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=200&fansRow=2&ptype=1&speed=0&skin=5&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=2644045772&verifier=eb301345&dpc=1"></iframe>
+    </li>
+  </ul>
+</section>
+<section>
+<div>
+    <script type="text/javascript" src="http://www.douban.com/service/badge/mijun/?show=collection&amp;n=2&amp;columns=3" ></script>
+</div>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - mijun(厚脸皮) -
+  <span class="credit">Powered by <a href="http://houlianpi.github.com/">厚脸皮</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
