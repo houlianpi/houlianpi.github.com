@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>厚脸皮说移动测试</title>
+  <title>厚脸皮说测试</title>
   <meta name="author" content="mijun(厚脸皮)">
 
   
-  <meta name="description" content="Octopress的使用 老早以前就有写blog的想法，当时觉得好麻烦的呀，慢慢的觉得好像也还好了。 这个blog需要写点移动测试方面的东西，会写一些经过验证的一些东西当然也会有很多跳入坑的经验。 写blog主要以下几点内容： 1 自己亲手做过的东西，成功或者失败无所谓，但是过程应该被记录下来 2 &hellip;">
+  <meta name="description" content="iOS自动化测试一直很神秘，很多人都在探索和找寻最强大的那一款自动化测试工具。个人观点，没有最强大只有最适合，适合以后使用熟练了自然功能强大了。 写在正文之前的几句废话。说到功能自动化测试一般特指基于UI层面的自动化，本文中介绍的自动化测试框架都是UI自动化测试框架。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,18 +24,30 @@
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="厚脸皮说移动测试" type="application/atom+xml">
+  <link href="/atom.xml" rel="alternate" title="厚脸皮说测试" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-47053050-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">厚脸皮说移动测试</a></h1>
+  <h1><a href="/">厚脸皮说测试</a></h1>
   
     <h2>在这里我们只说测试</h2>
   
@@ -57,6 +69,7 @@
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about-me">About me</a></li>
 </ul>
 
 </nav>
@@ -70,7 +83,320 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/octopress.html">Octopress</a></h1>
+      <h1 class="entry-title"><a href="/blog/ios-testframework.html">这些年用过的iOS测试框架</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-16T00:37:00+08:00" pubdate data-updated="true">Jan 16<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>   iOS自动化测试一直很神秘，很多人都在探索和找寻最强大的那一款自动化测试工具。个人观点，没有最强大只有最适合，适合以后使用熟练了自然功能强大了。</p>
+
+<p>   写在正文之前的几句废话。说到功能自动化测试一般特指基于UI层面的自动化，本文中介绍的自动化测试框架都是UI自动化测试框架。更大概念的自动化测试以后有时间再详细介绍吧。说到UI自动化测试，就会有不同的一些声音。说什么UI自动化测试投入产出比低，UI变化快脚本维护成本高等。其实，这是一个怎么看待UI自动化测试问题。个人认为适量的UI自动化测试投入产出比还是很高的，具体“适量”怎么理解需要看具体的场景。如果你觉得UI自动化一无是处，那么看到这里就可以千万别往下看了。</p>
+
+<p>   iOS到底有多少测试框架？大家一直在总结，之前stackoverflow上有一篇神帖总结过不下20种，当然不只是UI自动化测试框架，还包括单元测试框架什么的。（链接找不到了，由于时间比较老了很多工具已经不维护或者很少人使用，不看也罢）</p>
+
+<p>   最近发现了一篇Blog <a href="http://watirmelon.com/2013/11/04/the-current-state-of-ios-automated-functional-testing/" title="Title">The current state of iOS automated functional testing</a>总结了一些UI自动化框架，总结的比较到位推荐给大家。结合自己的使用经验，对该Blog进行一些补充，希望您喜欢。</p>
+
+<p>按照iOS自动化测试框架的实现原理来划分，iOS自动化测试框架大致可以分为两个大类4种类型：</p>
+
+<ul>
+<li>UI Automation系
+
+<ul>
+<li>扩展型UI Automation</li>
+<li>驱动型UI Automation</li>
+</ul>
+</li>
+<li>非 UI Automation系
+
+<ul>
+<li>私有API型</li>
+<li>注入编译型</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>UI Automation</h2>
+
+<p>UI Automation是Apple官方提供的UI自动化测试的解决方法，虽然直接使用非常不爽，但是还不得不说。虽然不好用，但是作为一些工具的底层实现还是需要了解的。<a href="https://developer.apple.com/library/ios/documentation/DeveloperTools/Reference/UIAutomationRef/_index.html" title="Title">官方教程</a> 和 <a href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/UsingtheAutomationInstrument/UsingtheAutomationInstrument.html" title="Title">相关API文档</a> 可以方便查阅</p>
+
+<h3>扩展型UI Automation</h3>
+
+<p><a href="https://github.com/alexvollmer/tuneup_js" title="title">TuneupJs</a>是最早的iOS自动化测试工具，以JavaScript扩展库方法提供了很多好用js工具，最重要的是提供了超简洁的单元测试框架和持续继承解决方案。</p>
+
+<p><a href="https://github.com/douban/ynm3k" title="title">ynm3k</a>是笔者维护的iOS自动化测试框架，借鉴或者说抄袭了很多TuneUpJs的想法，在其基础上加入了UI控件定位的很多方法，让测试脚本更加简单便捷。当然之后还有后续的维护计划，过了变态的996以后会开始实施。</p>
+
+<p>如果你偏爱这种类型的测试框架，我真心的推荐ynm3k。因为TuneUpJS已经不维护了，ynm3k还会做一些好玩的功能。最关键的是我觉得ynm3k的UI控件定位识别功能真的很棒。（老王卖瓜了这么长时间还请大家见谅）</p>
+
+<h3>驱动型UI Automation</h3>
+
+<p>驱动型UI Automation 在自动化测试底层使用了UI Automation库，通过TCP通信的方式驱动UI Automation来完成自动化测试。通过这种方式，编辑脚本的语言不在局限于JavaScript，理论上讲可以是任何一种语言。所以有了<a href="http://ios-driver.github.io/ios-driver/index.html">iOSDriver</a>和<a href="http://appium.io/">Appium</a>.</p>
+
+<p>iOSDriver和Appium还兼容了WebDriver的Json Wire Protocol协议，意味着你可以写WebDriver脚本来完成iOS自动化测试。当然在手机端的一些操作和Web端是不同的，iOSDriver和Appium都扩展了相关的功能。iOSDriver选择了多加入Java语言Jar包的方式支持，而Appium则选择了通过WebDriver注入JavaScript的方式支持。iOSDriver的实现方式决定了只能使用Java语言编辑脚本，而Appium则支持更多的语言。</p>
+
+<p>当然让我真正选择Appium的原因是因为Appium更加轻便易用一些。如果你不经常玩Java，使用iOSDriver的时候一定会在环境设置方面卡很长的时间。</p>
+
+<h3>私有API型</h3>
+
+<p>直接使用私有API对UI界面进行操作是最简洁有效的自动化测试方式。私有API结合iOS单元测试框架OCUnit的组合完全非常棒，至少对iOS开发工程师来说。在这种类型的测试框架中，<a href="https://github.com/kif-framework/KIF">KIF</a>是必须介绍的。原因很简单，Google在使用。对于那些对Google无理由崇拜的人们，赶紧用起来吧。</p>
+
+<p>笔者关注了KIF一段时间，起初1.0版本的时候，真心的不好用。当然工具的维护者也意识到了这个方面的问题，推出了KIF的2.0版本，更新了很多的API。在2.0版本时，还不错。如果想做纯UI界面操作的话，不推荐使用KIF。</p>
+
+<h3>注入编译型</h3>
+
+<p>注入编译型是指在编译时注入一个Server到App内部，通过Server对外通信完成UI操作指令的执行。其中最著名的代表为<a href="http://www.testingwithfrank.com/">Frank</a>和<a href="http://calaba.sh/">Calabash</a>. 它们还是BDD测试框架的杰出代表。维护大单位都是全球知名的敏捷咨询公司。喜欢cucumber和ruby的人可以考虑。</p>
+
+<p>大概介绍到这里，之后会陆续进行每种类型的详细介绍。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/applescript-hong-fa-mo-ni-qi-nei-cun-gao-jing.html">UI Automation 中触发iOS模拟器内存警告</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-09T19:18:00+08:00" pubdate data-updated="true">Jan 9<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在UI Automation的api中没有提供模拟内存警告的接口。在Monkey测试的过程中 MemoryWarning还是非常有用的。所以需要想办法自己封一个simulateMemoryWarning接口。</p>
+
+<p>经过调研，决定采用AppleScript来实现功能，然后在UI Automation中使用host.performTaskWithPathArgumentsTimeout调用AppleScript方式来实现。</p>
+
+<p>调试AppleScript。在<a href="http://stackoverflow.com/questions/2784892/simulate-memory-warnings-from-the-code-possible" title="Title">stackoverflow</a> 中，可以找到OC和AppleScript版本的内存告警实现。其中AppleScript的实现为：</p>
+
+<figure class='code'><figcaption><span>AppleScript simulate memory warning</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='applescript'><span class='line'><span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;System Events&quot;</span>
+</span><span class='line'>  <span class="k">tell</span> <span class="nv">process</span> <span class="s2">&quot;iPhone Simulator&quot;</span>
+</span><span class='line'>      <span class="k">tell</span> <span class="na">menu</span> <span class="nv">bar</span> <span class="mi">1</span>
+</span><span class='line'>          <span class="k">tell</span> <span class="na">menu</span> <span class="nv">bar</span> <span class="nb">item</span> <span class="s2">&quot;Hardware&quot;</span>
+</span><span class='line'>              <span class="k">tell</span> <span class="na">menu</span> <span class="s2">&quot;Hardware&quot;</span>
+</span><span class='line'>                  <span class="nv">click</span> <span class="na">menu</span> <span class="nb">item</span> <span class="s2">&quot;Simulate Memory Warning&quot;</span>
+</span><span class='line'>              <span class="k">end</span> <span class="k">tell</span>
+</span><span class='line'>          <span class="k">end</span> <span class="k">tell</span>
+</span><span class='line'>      <span class="k">end</span> <span class="k">tell</span>
+</span><span class='line'>  <span class="k">end</span> <span class="k">tell</span>
+</span><span class='line'><span class="k">end</span> <span class="k">tell</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>简单的调试发现不稳定，最好加入一下代码：</p>
+
+<figure class='code'><figcaption><span>AppleScript make sure iphone simulator activate</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='applescript'><span class='line'><span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;iPhone Simulator&quot;</span>
+</span><span class='line'>  <span class="nb">activate</span>
+</span><span class='line'><span class="k">end</span> <span class="k">tell</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>之前的脚本只能支持英文版操作系统，为了兼容中文操作系统，再次加入代码：</p>
+
+<figure class='code'><figcaption><span>AppleScript get os language & simulate memory warning</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='applescript'><span class='line'><span class="k">on</span> <span class="nv">get_language</span><span class="p">()</span>
+</span><span class='line'>  <span class="no">return</span> <span class="nv">user</span> <span class="nv">locale</span> <span class="k">of</span> <span class="p">(</span><span class="k">get</span> <span class="nb">system info</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span> <span class="nv">get_language</span>
+</span><span class='line'><span class="k">set</span> <span class="nv">menubar</span> <span class="k">to</span> <span class="s2">&quot;Hardware&quot;</span>
+</span><span class='line'><span class="k">set</span> <span class="nv">menuclick</span> <span class="k">to</span> <span class="s2">&quot;Simulate Memory Warning&quot;</span>
+</span><span class='line'><span class="k">if</span> <span class="nv">get_language</span><span class="p">()</span> <span class="o">=</span> <span class="s2">&quot;zh_CN&quot;</span> <span class="k">then</span>
+</span><span class='line'>  <span class="k">set</span> <span class="nv">menubar</span> <span class="k">to</span> <span class="s2">&quot;硬件&quot;</span>
+</span><span class='line'>  <span class="k">set</span> <span class="nv">menuclick</span> <span class="k">to</span> <span class="s2">&quot;模拟内存警告&quot;</span>
+</span><span class='line'><span class="k">end</span> <span class="k">if</span>
+</span><span class='line'><span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;iPhone Simulator&quot;</span>
+</span><span class='line'>  <span class="nb">activate</span>
+</span><span class='line'><span class="k">end</span> <span class="k">tell</span>
+</span><span class='line'><span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;System Events&quot;</span>
+</span><span class='line'>  <span class="k">tell</span> <span class="nv">process</span> <span class="s2">&quot;iPhone Simulator&quot;</span>
+</span><span class='line'>      <span class="k">tell</span> <span class="na">menu</span> <span class="nv">bar</span> <span class="mi">1</span>
+</span><span class='line'>          <span class="k">tell</span> <span class="na">menu</span> <span class="nv">bar</span> <span class="nb">item</span> <span class="nv">menubar</span>
+</span><span class='line'>              <span class="k">tell</span> <span class="na">menu</span> <span class="nv">menubar</span>
+</span><span class='line'>                  <span class="nv">click</span> <span class="na">menu</span> <span class="nb">item</span> <span class="nv">menuclick</span>
+</span><span class='line'>              <span class="k">end</span> <span class="k">tell</span>
+</span><span class='line'>          <span class="k">end</span> <span class="k">tell</span>
+</span><span class='line'>      <span class="k">end</span> <span class="k">tell</span>
+</span><span class='line'>  <span class="k">end</span> <span class="k">tell</span>
+</span><span class='line'><span class="k">end</span> <span class="k">tell</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>保存好文件以后，放入固定的路径，使用UI Automation调用，可以参考一下代码：</p>
+
+<figure class='code'><figcaption><span>JavaScript UI Automation </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">simulateMemoryWarning</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">UIATarget</span><span class="p">.</span><span class="nx">localTarget</span><span class="p">();</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">host</span> <span class="o">=</span> <span class="nx">target</span><span class="p">.</span><span class="nx">host</span><span class="p">();</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">host</span><span class="p">.</span><span class="nx">performTaskWithPathArgumentsTimeout</span><span class="p">(</span><span class="s2">&quot;/usr/bin/osascript&quot;</span><span class="p">,</span> <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">scriptPath</span><span class="o">+</span><span class="s2">&quot;SMW.scpt&quot;</span><span class="p">],</span> <span class="mi">5</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">exitCode</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
+</span><span class='line'>        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>         <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>好的，功能就做完了。还算顺利，但是如果你是一个geek的话，会觉得之前的AppleScript中有一段很蛋疼的代码。没错我也觉得蛋疼，并且有些老外也觉得蛋疼，所以有一个现成的函数可以使用：</p>
+
+<figure class='code'><figcaption><span>AppleScript use menu_click function</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='applescript'><span class='line'><span class="k">on</span> <span class="nv">menu_click</span><span class="p">(</span><span class="nv">mList</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">local</span> <span class="nv">appName</span><span class="p">,</span> <span class="nv">topMenu</span><span class="p">,</span> <span class="nv">r</span>
+</span><span class='line'>  <span class="c">-- Validate our input</span>
+</span><span class='line'>  <span class="k">if</span> <span class="nv">mList</span>&#39;s <span class="nv">length</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="k">then</span> <span class="k">error</span> <span class="s2">&quot;Menu list is not long enough&quot;</span>
+</span><span class='line'>  <span class="c">-- Set these variables for clarity and brevity later on</span>
+</span><span class='line'>  <span class="k">set</span> <span class="p">{</span><span class="nv">appName</span><span class="p">,</span> <span class="nv">topMenu</span><span class="p">}</span> <span class="k">to</span> <span class="p">(</span><span class="nb">items</span> <span class="mi">1</span> <span class="nb">through</span> <span class="mi">2</span> <span class="k">of</span> <span class="nv">mList</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">set</span> <span class="nv">r</span> <span class="k">to</span> <span class="p">(</span><span class="nb">items</span> <span class="mi">3</span> <span class="nb">through</span> <span class="p">(</span><span class="nv">mList</span>&#39;s <span class="nv">length</span><span class="p">)</span> <span class="k">of</span> <span class="nv">mList</span><span class="p">)</span>
+</span><span class='line'>  <span class="c">-- This overly-long line calls the menu_recurse function with</span>
+</span><span class='line'>  <span class="c">-- two arguments: r, and a reference to the top-level menu</span>
+</span><span class='line'>  <span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;System Events&quot;</span> <span class="k">to</span> <span class="k">my</span> <span class="nv">menu_click_recurse</span><span class="p">(</span><span class="nv">r</span><span class="p">,</span> <span class="p">((</span><span class="nv">process</span> <span class="nv">appName</span><span class="p">)</span>&#39;s <span class="se">¬</span>
+</span><span class='line'>      <span class="p">(</span><span class="na">menu</span> <span class="nv">bar</span> <span class="mi">1</span><span class="p">)</span>&#39;s <span class="p">(</span><span class="na">menu</span> <span class="nv">bar</span> <span class="nb">item</span> <span class="nv">topMenu</span><span class="p">)</span>&#39;s <span class="p">(</span><span class="na">menu</span> <span class="nv">topMenu</span><span class="p">)))</span>
+</span><span class='line'><span class="k">end</span> <span class="nv">menu_click</span>
+</span><span class='line'><span class="k">on</span> <span class="nv">menu_click_recurse</span><span class="p">(</span><span class="nv">mList</span><span class="p">,</span> <span class="nv">parentObject</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">local</span> <span class="nv">f</span><span class="p">,</span> <span class="nv">r</span>
+</span><span class='line'>  <span class="c">-- `f` = first item, `r` = rest of items</span>
+</span><span class='line'>  <span class="k">set</span> <span class="nv">f</span> <span class="k">to</span> <span class="nb">item</span> <span class="mi">1</span> <span class="k">of</span> <span class="nv">mList</span>
+</span><span class='line'>  <span class="k">if</span> <span class="nv">mList</span>&#39;s <span class="nv">length</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">then</span> <span class="k">set</span> <span class="nv">r</span> <span class="k">to</span> <span class="p">(</span><span class="nb">items</span> <span class="mi">2</span> <span class="nb">through</span> <span class="p">(</span><span class="nv">mList</span>&#39;s <span class="nv">length</span><span class="p">)</span> <span class="k">of</span> <span class="nv">mList</span><span class="p">)</span>
+</span><span class='line'>  <span class="c">-- either actually click the menu item, or recurse again</span>
+</span><span class='line'>  <span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;System Events&quot;</span>
+</span><span class='line'>      <span class="k">if</span> <span class="nv">mList</span>&#39;s <span class="nv">length</span> <span class="ow">is</span> <span class="mi">1</span> <span class="k">then</span>
+</span><span class='line'>          <span class="nv">click</span> <span class="nv">parentObject</span>&#39;s <span class="na">menu</span> <span class="nb">item</span> <span class="nv">f</span>
+</span><span class='line'>      <span class="k">else</span>
+</span><span class='line'>          <span class="k">my</span> <span class="nv">menu_click_recurse</span><span class="p">(</span><span class="nv">r</span><span class="p">,</span> <span class="p">(</span><span class="nv">parentObject</span>&#39;s <span class="p">(</span><span class="na">menu</span> <span class="nb">item</span> <span class="nv">f</span><span class="p">)</span>&#39;s <span class="p">(</span><span class="na">menu</span> <span class="nv">f</span><span class="p">)))</span>
+</span><span class='line'>      <span class="k">end</span> <span class="k">if</span>
+</span><span class='line'>  <span class="k">end</span> <span class="k">tell</span>
+</span><span class='line'><span class="k">end</span> <span class="nv">menu_click_recurse</span>
+</span><span class='line'><span class="k">tell</span> <span class="nb">application</span> <span class="s2">&quot;iPhone Simulator&quot;</span>
+</span><span class='line'>  <span class="nb">activate</span>
+</span><span class='line'><span class="k">end</span> <span class="k">tell</span>
+</span><span class='line'><span class="nv">menu_click</span><span class="p">({</span><span class="s2">&quot;iPhone Simulator&quot;</span><span class="p">,</span> <span class="s2">&quot;硬件&quot;</span><span class="p">,</span> <span class="s2">&quot;模拟内存警告&quot;</span><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>大概玩了一下AppleScript，感觉语法方面有点颠覆之前学过的语言，但是如果能熟练了以后，写代码就像说话一下。感兴趣的同学可以试试。以上相关功能代码已经加入<a href="https://github.com/douban/ynm3k" title="Title">ynm3k</a>中。也可以直接使用的。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/octopress.html">才开始写Blog</a></h1>
     
     
       <p class="meta">
@@ -93,21 +419,19 @@
   </header>
 
 
-  <div class="entry-content"><h1>Octopress的使用</h1>
+  <div class="entry-content"><p>是的，才开始写Blog。之前一直想写，这样可以沉淀一些东西，但是一直没写。</p>
 
-<p>老早以前就有写blog的想法，当时觉得好麻烦的呀，慢慢的觉得好像也还好了。</p>
+<p>回首工作历程，做测试工程师也10年了，越做越觉得很多东西搞不定，很多问题解决不了。当然，写了Blog也解决不了。</p>
 
-<p>这个blog需要写点移动测试方面的东西，会写一些经过验证的一些东西当然也会有很多跳入坑的经验。</p>
+<p>慢慢来吧，一切都会好起来的（深表怀疑 ^_^ ）。</p>
 
-<p>写blog主要以下几点内容：</p>
+<p>本Blog为了标新立异，会遵循以下原则：</p>
 
-<h4>1 自己亲手做过的东西，成功或者失败无所谓，但是过程应该被记录下来</h4>
+<ol>
+<li>实践。有很多实践需要沉淀总结，希望能自己完成积累。可能有很多实践内容有雷同嫌疑，但是可以保证都亲手做过，可以实现。</li>
+<li>吐槽困惑。测试方面存在着太多的槽点，可以吐很多很多。在吐槽时，我会尽可能的保证公正，尽量多的说事实和现象，尽量少的表达观点，写给那些聪明的读者。</li>
+</ol>
 
-<h4>2 自己需要记录存底的一些东西</h4>
-
-<h4>3 吐槽移动测试工具</h4>
-
-<p>呵呵，其实这一边blog就是一个试验品，想让自动能尽快的熟练使用Octopress。</p>
 </div>
   
   
@@ -128,13 +452,62 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/octopress.html">octopress</a>
+        <a href="/blog/ios-testframework.html">这些年用过的iOS测试框架</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/applescript-hong-fa-mo-ni-qi-nei-cun-gao-jing.html">UI Automation 中触发iOS模拟器内存警告</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/octopress.html">才开始写Blog</a>
       </li>
     
   </ul>
 </section>
 
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/houlianpi">@houlianpi</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
 
+        github.showRepos({
+            user: 'houlianpi',
+            count: 4,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <ul id="weibo">
+    <li>
+      <iframe width="100%" height="200" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=200&fansRow=2&ptype=1&speed=0&skin=5&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=2644045772&verifier=eb301345&dpc=1"></iframe>
+    </li>
+  </ul>
+</section>
+<section>
+<div>
+    <script type="text/javascript" src="http://www.douban.com/service/badge/mijun/?show=collection&amp;n=2&amp;columns=3" ></script>
+</div>
+</section>
 
 
 
@@ -145,7 +518,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - mijun(厚脸皮) -
+  Copyright &copy; 2014 - mijun(厚脸皮) -
   <span class="credit">Powered by <a href="http://houlianpi.github.com/">厚脸皮</a></span>
 </p>
 
@@ -157,16 +530,6 @@
 
 
 
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
 
 
 

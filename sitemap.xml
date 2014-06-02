@@ -2,18 +2,32 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://houlianpi.github.com/blog/octopress.html</loc>
-        <lastmod>2013-05-09T00:02:51+08:00</lastmod>
+        <lastmod>2014-06-02T10:58:30+08:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://houlianpi.github.com/blog/applescript-hong-fa-mo-ni-qi-nei-cun-gao-jing.html
+        </loc>
+        <lastmod>2014-06-02T10:58:30+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://houlianpi.github.com/blog/ios-testframework.html</loc>
+        <lastmod>2014-06-02T10:58:30+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://houlianpi.github.com/about-me/</loc>
+        <lastmod>2014-06-02T10:58:30+08:00</lastmod>
     </url>
     <url>
         <loc>http://houlianpi.github.com/blog/archives/</loc>
-        <lastmod>2013-05-09T00:02:51+08:00</lastmod>
+        <lastmod>2014-06-02T10:58:30+08:00</lastmod>
     </url>
     <url>
         <loc>http://houlianpi.github.com/</loc>
-        <lastmod>2013-05-09T00:02:51+08:00</lastmod>
+        <lastmod>2014-06-02T10:58:30+08:00</lastmod>
     </url>
     <url>
         <loc>http://houlianpi.github.com/robots.txt</loc>
-        <lastmod>2013-05-09T00:02:51+08:00</lastmod>
+        <lastmod>2014-06-02T10:58:12+08:00</lastmod>
     </url>
 </urlset>

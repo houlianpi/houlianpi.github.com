@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: TestFrameWork | 厚脸皮说测试]]></title>
+  <link href="http://houlianpi.github.com/blog/categories/testframework/atom.xml" rel="self"/>
+  <link href="http://houlianpi.github.com/"/>
+  <updated>2014-06-02T10:58:47+08:00</updated>
+  <id>http://houlianpi.github.com/</id>
+  <author>
+    <name><![CDATA[mijun(厚脸皮)]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[这些年用过的iOS测试框架]]></title>
+    <link href="http://houlianpi.github.com/blog/ios-testframework.html"/>
+    <updated>2014-01-16T00:37:00+08:00</updated>
+    <id>http://houlianpi.github.com/blog/ios-testframework</id>
+    <content type="html"><![CDATA[<p>   iOS自动化测试一直很神秘，很多人都在探索和找寻最强大的那一款自动化测试工具。个人观点，没有最强大只有最适合，适合以后使用熟练了自然功能强大了。</p>
+
+<p>   写在正文之前的几句废话。说到功能自动化测试一般特指基于UI层面的自动化，本文中介绍的自动化测试框架都是UI自动化测试框架。更大概念的自动化测试以后有时间再详细介绍吧。说到UI自动化测试，就会有不同的一些声音。说什么UI自动化测试投入产出比低，UI变化快脚本维护成本高等。其实，这是一个怎么看待UI自动化测试问题。个人认为适量的UI自动化测试投入产出比还是很高的，具体“适量”怎么理解需要看具体的场景。如果你觉得UI自动化一无是处，那么看到这里就可以千万别往下看了。</p>
+
+<p>   iOS到底有多少测试框架？大家一直在总结，之前stackoverflow上有一篇神帖总结过不下20种，当然不只是UI自动化测试框架，还包括单元测试框架什么的。（链接找不到了，由于时间比较老了很多工具已经不维护或者很少人使用，不看也罢）</p>
+
+<p>   最近发现了一篇Blog <a href="http://watirmelon.com/2013/11/04/the-current-state-of-ios-automated-functional-testing/" title="Title">The current state of iOS automated functional testing</a>总结了一些UI自动化框架，总结的比较到位推荐给大家。结合自己的使用经验，对该Blog进行一些补充，希望您喜欢。</p>
+
+<p>按照iOS自动化测试框架的实现原理来划分，iOS自动化测试框架大致可以分为两个大类4种类型：</p>
+
+<ul>
+<li>UI Automation系
+
+<ul>
+<li>扩展型UI Automation</li>
+<li>驱动型UI Automation</li>
+</ul>
+</li>
+<li>非 UI Automation系
+
+<ul>
+<li>私有API型</li>
+<li>注入编译型</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>UI Automation</h2>
+
+<p>UI Automation是Apple官方提供的UI自动化测试的解决方法，虽然直接使用非常不爽，但是还不得不说。虽然不好用，但是作为一些工具的底层实现还是需要了解的。<a href="https://developer.apple.com/library/ios/documentation/DeveloperTools/Reference/UIAutomationRef/_index.html" title="Title">官方教程</a> 和 <a href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/UsingtheAutomationInstrument/UsingtheAutomationInstrument.html" title="Title">相关API文档</a> 可以方便查阅</p>
+
+<h3>扩展型UI Automation</h3>
+
+<p><a href="https://github.com/alexvollmer/tuneup_js" title="title">TuneupJs</a>是最早的iOS自动化测试工具，以JavaScript扩展库方法提供了很多好用js工具，最重要的是提供了超简洁的单元测试框架和持续继承解决方案。</p>
+
+<p><a href="https://github.com/douban/ynm3k" title="title">ynm3k</a>是笔者维护的iOS自动化测试框架，借鉴或者说抄袭了很多TuneUpJs的想法，在其基础上加入了UI控件定位的很多方法，让测试脚本更加简单便捷。当然之后还有后续的维护计划，过了变态的996以后会开始实施。</p>
+
+<p>如果你偏爱这种类型的测试框架，我真心的推荐ynm3k。因为TuneUpJS已经不维护了，ynm3k还会做一些好玩的功能。最关键的是我觉得ynm3k的UI控件定位识别功能真的很棒。（老王卖瓜了这么长时间还请大家见谅）</p>
+
+<h3>驱动型UI Automation</h3>
+
+<p>驱动型UI Automation 在自动化测试底层使用了UI Automation库，通过TCP通信的方式驱动UI Automation来完成自动化测试。通过这种方式，编辑脚本的语言不在局限于JavaScript，理论上讲可以是任何一种语言。所以有了<a href="http://ios-driver.github.io/ios-driver/index.html">iOSDriver</a>和<a href="http://appium.io/">Appium</a>.</p>
+
+<p>iOSDriver和Appium还兼容了WebDriver的Json Wire Protocol协议，意味着你可以写WebDriver脚本来完成iOS自动化测试。当然在手机端的一些操作和Web端是不同的，iOSDriver和Appium都扩展了相关的功能。iOSDriver选择了多加入Java语言Jar包的方式支持，而Appium则选择了通过WebDriver注入JavaScript的方式支持。iOSDriver的实现方式决定了只能使用Java语言编辑脚本，而Appium则支持更多的语言。</p>
+
+<p>当然让我真正选择Appium的原因是因为Appium更加轻便易用一些。如果你不经常玩Java，使用iOSDriver的时候一定会在环境设置方面卡很长的时间。</p>
+
+<h3>私有API型</h3>
+
+<p>直接使用私有API对UI界面进行操作是最简洁有效的自动化测试方式。私有API结合iOS单元测试框架OCUnit的组合完全非常棒，至少对iOS开发工程师来说。在这种类型的测试框架中，<a href="https://github.com/kif-framework/KIF">KIF</a>是必须介绍的。原因很简单，Google在使用。对于那些对Google无理由崇拜的人们，赶紧用起来吧。</p>
+
+<p>笔者关注了KIF一段时间，起初1.0版本的时候，真心的不好用。当然工具的维护者也意识到了这个方面的问题，推出了KIF的2.0版本，更新了很多的API。在2.0版本时，还不错。如果想做纯UI界面操作的话，不推荐使用KIF。</p>
+
+<h3>注入编译型</h3>
+
+<p>注入编译型是指在编译时注入一个Server到App内部，通过Server对外通信完成UI操作指令的执行。其中最著名的代表为<a href="http://www.testingwithfrank.com/">Frank</a>和<a href="http://calaba.sh/">Calabash</a>. 它们还是BDD测试框架的杰出代表。维护大单位都是全球知名的敏捷咨询公司。喜欢cucumber和ruby的人可以考虑。</p>
+
+<p>大概介绍到这里，之后会陆续进行每种类型的详细介绍。</p>
+]]></content>
+  </entry>
+  
+</feed>
