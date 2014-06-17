@@ -9,7 +9,7 @@
   <meta name="author" content="mijun(厚脸皮)">
 
   
-  <meta name="description" content="《iOS测试指南》出版并且上市已经有一个月的时间了。随着该书陆续的与读者见面，一些隐藏着的小错误也慢慢浮出水面。在这里先简单的说明一下，截止到现在笔者所知的一些书内的错误。 Byte 和 bit的区别 Byte和bit是有区别，8个bit是一个Byte。一般说文件大小的时候，单位是Byte。 &hellip;">
+  <meta name="description" content="Appium输入中文的问题 在使用Appium做手机端的自动化测试时，你可以会遇到输入中文的问题。但是由于Appium是三个自动化测试工具的集合，所以遇到的中文问题也可能会比较难说清楚。Appium支持iOS、Android和FireFoxOS三种操作系统。但是FireFoxOS一般人都不用，所以 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,181 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/appium-chinese-input.html">Appium中午输入问题的一些探索</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-17T12:08:00+08:00" pubdate data-updated="true">Jun 17<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Appium输入中文的问题</h2>
+
+<p>在使用Appium做手机端的自动化测试时，你可以会遇到输入中文的问题。但是由于Appium是三个自动化测试工具的集合，所以遇到的中文问题也可能会比较难说清楚。Appium支持iOS、Android和FireFoxOS三种操作系统。但是FireFoxOS一般人都不用，所以，文章中它是最后一次露面了。</p>
+
+<p>Appium在iOS端自动化测试底层使用的是官方的<a href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/UsingtheAutomationInstrument/UsingtheAutomationInstrument.html" title="Title">UI Autoamtion</a>。在Android端，4.2以上使用的官方的<a href="http://developer.android.com/tools/help/uiautomator/index.html" title="Title">Uiautomator</a>，4.1以下使用的时eBay的<a href="http://selendroid.io/" title="Title">selendroid</a>。所以在输入中文的问题上，三个平台理论上都有可能遇到问题。本文之后将重点调研Uiautomator的输入中文的问题。</p>
+
+<p>关于中文输入的的结论：</p>
+
+<ul>
+<li>Appium iOS  完全支持</li>
+<li>Appium Android selendroid 应该支持（需要实践确认，目前没有试过，只是猜测）</li>
+<li>Appium Android Uiautomator 不支持，应该是硬伤，目前无解</li>
+</ul>
+
+
+<p>selendroid的调研之后补充。</p>
+
+<h2>Appium iOS中文输入调研</h2>
+
+<p>首先先来说一下UI Automation。苹果官方的UI Automation在输入时有两种方法：</p>
+
+<ul>
+<li>（1）直接使用Element的setValue方法。</li>
+<li>（2）UI Automation中的 UIAKeyboard对象有一个typeString方法。</li>
+</ul>
+
+
+<p>以上两个方法在模拟器上都是完美支持中文的。所以不管在iOS上面怎么玩，都是支持中文的。当然两个方式是有区别的。方法（1）简单直接，基本上就是一个简单的set方法。输入时不会触发什么类似textChanged事件。方法（2）需要很多支持，方法二是完全模拟人手工输入过程。苹果对英文以外的输入都做了很好地兼容。</p>
+
+<p>Appium iOS版本的  sendkeys方法，直接对应  UIAKeyboard的typeString方法。由于typeString方法完美支持中文。所以Appium iOS版本也就支持中文了。当然，typeString方法也有缺点。当一个输入框内有内容的时候，typeString的输入方法是添加，所以，如果之前的内容不需要的时候，还需要先清除掉，在进行typeString。在没有特殊要求的情况下，我比较喜欢setValue这个方法，但是遗憾的时Appium不支持直接setValue。</p>
+
+<h2>Appium Android Uiautomator中文输入调研</h2>
+
+<p>之所以能有这篇文章，主要是因为最近想使用Appium做一些App之间相互跳转的自动化确认测试。一个中文的App，如果不能输入中文基本上就是歇菜。在使用学习工具的时候发现了很多坑，不能输入中文的这个坑最大，最郁闷。所以，把自己的调研方法写出来，供大家参考。</p>
+
+<p>首先 在一切未知的情况下，使用了这个方法进行输入：</p>
+
+<pre><code>input.sendKeys("舌尖上的中国");
+</code></pre>
+
+<p>发现结果不对，然后尝试了不输入中文：</p>
+
+<pre><code>input.sendKeys("ssssssss");
+</code></pre>
+
+<p>结果也不对，发现手机上使用的输入法是Google中文输入法。把输入法切换到英文输入法，以后，英文的正确的了，中文的还是有问题。于是Google了一下，找到了一个<a href="http://testerhome.com/topics/242" title="Title">帖子</a>。上面信息量很大，看起来比较靠谱的是有一个方法，利用JS运行器来直接输入方法，翻译为Java版本以后，代码如下：</p>
+
+<figure class='code'><figcaption><span>Java</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="n">inputDir</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;element&quot;</span><span class="o">,((</span><span class="n">RemoteWebElement</span><span class="o">)</span><span class="n">input</span><span class="o">).</span><span class="na">getId</span><span class="o">());</span>
+</span><span class='line'>    <span class="n">inputDir</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;text&quot;</span><span class="o">,</span><span class="s">&quot;舌尖上的中国&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">driver</span><span class="o">.</span><span class="na">executeScript</span><span class="o">(</span><span class="s">&quot;element:setText&quot;</span><span class="o">,</span> <span class="n">inputDir</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个方法会出现一个没有实现的异常。</p>
+
+<p>好吧，看源码。</p>
+
+<p>在使用Appium 的sendkeys方法是，Client会发送一个http请求到Appium的server。在AppiumServer端的源码中 有一个 rounting 的文件，输入方法会发送这样的路由： rest.post(&#8216;/wd/hub/session/:sessionId?/element/:elementId?/value&#8217;, controller.setValue); 然后树藤摸瓜，找到controller的setValue方法。然后一步一步的查找，最终会找到bootstrap项目中的AndroidElement.java文件，其中有setText方法。代码如下：</p>
+
+<figure class='code'><figcaption><span>Java</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">setText</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">UiObjectNotFoundException</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">UnicodeEncoder</span><span class="o">.</span><span class="na">needsEncoding</span><span class="o">(</span><span class="n">text</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">Logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Sending Unicode text to element: &quot;</span> <span class="o">+</span> <span class="n">text</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">String</span> <span class="n">encodedText</span> <span class="o">=</span> <span class="n">UnicodeEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">el</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">encodedText</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">Logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Sending plain text to element: &quot;</span> <span class="o">+</span> <span class="n">text</span><span class="o">);</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">el</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在Appium Android Uiautomator中，输入方法就是这一段代码。从这一段代码中会发现Appium基本没有做什么事情，最终调用了Uiautomator本身的setText方法。所以，接下来需要确认原生的Uiautomator是否可以支持中文输入。
+经过简单的测试发现，Uiautomator不支持中文输入，然后继续Google解决方案。发现了一个<a href="https://github.com/sumio/uiautomator-unicode-input-helper" title="Title">uiautomator-unicode-input-helper</a>开源项目。直接拿来尝试了中文，也发现不对。按照作者的说法是可以支持日语，但是貌似想支持中文的话，还要进行一定量的开发。</p>
+
+<p>继续看看Uiautomator为什么不支持中文。然后继续找Android的源码，发现Uiautomator的所有的功能都是通过UiAutomatorBridge来完成的。在UiAutomatorBridge类中有一个成员变量类型是InteractionController。输入是通过InteractionController来实现的。具体的setText方法代码如下：</p>
+
+<figure class='code'><figcaption><span>Java</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>   <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">More</span> <span class="o">...</span><span class="na">sendText</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">DEBUG</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                    <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">LOG_TAG</span><span class="o">,</span> <span class="s">&quot;sendText (&quot;</span> <span class="o">+</span> <span class="n">text</span> <span class="o">+</span> <span class="s">&quot;)&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>        <span class="n">mUiAutomatorBridge</span><span class="o">.</span><span class="na">setOperationTime</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">KeyEvent</span><span class="o">[]</span> <span class="n">events</span> <span class="o">=</span> <span class="n">mKeyCharacterMap</span><span class="o">.</span><span class="na">getEvents</span><span class="o">(</span><span class="n">text</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">());</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">events</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="k">for</span> <span class="o">(</span><span class="n">KeyEvent</span> <span class="n">event2</span> <span class="o">:</span> <span class="n">events</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                <span class="c1">// We have to change the time of an event before injecting it because</span>
+</span><span class='line'>                <span class="c1">// all KeyEvents returned by KeyCharacterMap.getEvents() have the same</span>
+</span><span class='line'>                <span class="c1">// time stamp and the system rejects too old events. Hence, it is</span>
+</span><span class='line'>                <span class="c1">// possible for an event to become stale before it is injected if it</span>
+</span><span class='line'>                <span class="c1">// takes too long to inject the preceding ones.</span>
+</span><span class='line'>                <span class="n">KeyEvent</span> <span class="n">event</span> <span class="o">=</span> <span class="n">KeyEvent</span><span class="o">.</span><span class="na">changeTimeRepeat</span><span class="o">(</span><span class="n">event2</span><span class="o">,</span>
+</span><span class='line'>                        <span class="n">SystemClock</span><span class="o">.</span><span class="na">uptimeMillis</span><span class="o">(),</span> <span class="mi">0</span><span class="o">);</span>
+</span><span class='line'>                <span class="k">if</span> <span class="o">(!</span><span class="n">injectEventSync</span><span class="o">(</span><span class="n">event</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>                    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span><span class='line'>                <span class="o">}</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>通过这段代码，基本上就明白了，Android的Uiautomator完全没有兼容英文以外的输入法的意思。并且也没有提供直接设置属性的方法。</p>
+
+<p>Appium Android Uiautomator 要支持输入中文还有很长的一段路需要走。伤心了。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -573,6 +748,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/appium-chinese-input.html">Appium中午输入问题的一些探索</a>
+      </li>
     
       <li class="post">
         <a href="/blog/kan-wu.html">《iOS测试指南》勘误一</a>
