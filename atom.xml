@@ -4,7 +4,7 @@
   <title><![CDATA[厚脸皮说测试]]></title>
   <link href="http://houlianpi.github.com/atom.xml" rel="self"/>
   <link href="http://houlianpi.github.com/"/>
-  <updated>2014-06-18T11:41:23+08:00</updated>
+  <updated>2014-06-18T11:42:18+08:00</updated>
   <id>http://houlianpi.github.com/</id>
   <author>
     <name><![CDATA[mijun(厚脸皮)]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Appium中午输入问题的一些探索]]></title>
+    <title type="html"><![CDATA[Appium中文输入问题的一些探索]]></title>
     <link href="http://houlianpi.github.com/blog/appium-chinese-input.html"/>
     <updated>2014-06-17T12:08:00+08:00</updated>
     <id>http://houlianpi.github.com/blog/appium-chinese-input</id>
