@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Calabash Android 初始化和一些使用技巧 - 厚脸皮说测试</title>
+  <meta name="author" content="mijun(厚脸皮)">
+
+  
+  <meta name="description" content="Calabash Android 真的不错 Android自动化测试有着茫茫多的自动化测试框架，由于本人是Ruby的fans。所以对Ruby封装的一些工具情有独钟。虽然是Ruby的fans，但是对BDD一直不太能接受。最近正好有一个机会，开始尝试着使用Calabash &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://houlianpi.github.com/blog/calabash-setup-and-simple-use.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="厚脸皮说测试" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-47053050-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">厚脸皮说测试</a></h1>
+  
+    <h2>在这里我们只说测试</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:houlianpi.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about-me">About me</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Calabash Android 初始化和一些使用技巧</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-06-19T08:32:00+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Calabash Android 真的不错</h2>
+
+<p>  Android自动化测试有着茫茫多的自动化测试框架，由于本人是Ruby的fans。所以对Ruby封装的一些工具情有独钟。虽然是Ruby的fans，但是对BDD一直不太能接受。最近正好有一个机会，开始尝试着使用Calabash Android自动化测试做一些东西。</p>
+
+<p>  首先，还是先废话几句吧。Android的自动化测试版本太多，不能在这里一一介绍。但是，现在国内使用的框架基本上可以分为两大类：Android JUnit系列和UiAutomator系列。</p>
+
+<p>  Android Junit系列就包括大名鼎鼎的<a href="https://code.google.com/p/robotium/">Robotium</a>和今天要说的<a href="https://github.com/calabash/calabash-android">Calabash Android</a>。这个系列除了有签名限制不能夸应用以外，都非常健壮和稳定。</p>
+
+<p>  UiAutomator系列最著名的当然要说是<a href="http://appium.io/">Appium</a>。UiAutomator可以跨应用操作，整体操作完全是基于UI的操作。但是Android官方对UiAutomator的支持并不是非常好，比如输入法等。使得UiAutomator的运行稳定性相对于Android JUnit差很多。再加上Android本身的版本分裂，UiAutomator那就更会让开发者觉得头大。所以，如果没有跨应用的操作，请尽量不要选择UiAutomator系列的工具，至少现在不要。</p>
+
+<p>  在Android JUnit这个系列上选择一款工具做自动化测试的话，个人更倾向于选择Calabash Android](https://github.com/calabash/calabash-android)或者<a href="http://selendroid.io/">Selendroid</a>。独立的QA团队更需要无源码方式的自动化测试框架。其次，简单高效稳定是任何自动化测试框架的基础。从这两点出发，选择了以上两款工具。<a href="http://selendroid.io/">Selendroid</a>是使用Java开发的，一般情况下需要使用Java来编写自动化测试用例。作为Ruby的fans更应该尝试一下Calabash Android](https://github.com/calabash/calabash-android)。</p>
+
+<h2>Calabash的环境配置</h2>
+
+<p>  Calabash的本身的安装相对简单，并且有<a href="https://github.com/calabash/calabash-android/blob/master/documentation/installation.md">官方文档</a>。现在安装的Calabash都是0.5版本的。</p>
+
+<p>  安装完成之后，进行简单的配置才可以使用Calabash。</p>
+
+<h4>1、配置环境变量</h4>
+
+<p>配置环境变量最关键点</p>
+
+<pre><code>export ANDROID_HOME=/Users/&lt;user&gt;/adt-bundle-mac-x86_64-20140702/sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+</code></pre>
+
+<h4>2、生成签名，并且知道自己签名的password和alias</h4>
+
+<p>生成签名可以使用一下Shell来生成。</p>
+
+<pre><code>keytool -genkey -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+</code></pre>
+
+<p>生成之后签名的位置在</p>
+
+<pre><code>~/.android/debug.keystore
+</code></pre>
+
+<p>password是：</p>
+
+<pre><code>android
+</code></pre>
+
+<p>alias是：</p>
+
+<pre><code>androiddebugkey
+</code></pre>
+
+<p>以上这些关键元素在配置Calabash的时候都很重要。</p>
+
+<h4>3、配置Calabash</h4>
+
+<p>Calabash的配置一般情况加只需要配置签名相关信息就好。运行命令行：</p>
+
+<pre><code>calabash-android setup 520c4f587081a6b530a03c3e86c8bfc4.apk -v
+</code></pre>
+
+<p>然后按照提示分别输入，签名证书的位置，密码和alias。成功之后会看到这样一句提示：</p>
+
+<pre><code>Saved your settings to .calabash_settings. You can edit the settings manually or run this setup script again
+</code></pre>
+
+<p>当然，你也可以手动的配置文件完成设置。配置文件的地址为：</p>
+
+<pre><code>~/.calabash_settings
+</code></pre>
+
+<h4>4、Calabash Console</h4>
+
+<p>Calabash Console对于会写代码的人来说，一种非常方便调试的工具。使用命令：</p>
+
+<pre><code>calabash-android console 520c4f587081a6b530a03c3e86c8bfc4.apk
+</code></pre>
+
+<p>当然有时就会报错。报错有两种，一种是需要按照本文之前的内容进行Calabash配置。还有一种情况是需要对被测试应用进行重新签名。重新签名的命令：</p>
+
+<pre><code>calabash-android resign 520c4f587081a6b530a03c3e86c8bfc4.apk -v
+</code></pre>
+
+<p>成功进入Calabash Console之后，还需要运行两个命令行，才能开始传统意义上的自动化测试的调试：</p>
+
+<pre><code>reinstall_apps
+start_test_server_in_background
+</code></pre>
+
+<p>经过以上两条命令，被测试程序会启动，这是可以通过一些Calabash的命令进行自动化测试了。</p>
+
+<p>当然，也会有一些异常情况，例如，如果拿了网易新闻的Android客户端做这个实验，就会发现不会成功。因为网易新闻做了签名验证，当程序的签名被替换掉以后，程序无法正常启动。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">mijun(厚脸皮)</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-06-19T08:32:00+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2015</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+  
+       
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+<a class="jiathis_button_tsina"></a>
+<a class="jiathis_button_douban"></a>
+<a class="jiathis_button_weixin"></a>
+<a class="jiathis_button_douban9dian"></a>
+<a href="http://www.jiathis.com/share?uid=1886913" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+	data_track_clickback:true,
+	summary:"",
+	shortUrl:false,
+	hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1886913" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+  
+   
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/appium-chinese-input.html" title="Previous Post: Appium中文输入问题的一些探索">&laquo; Appium中文输入问题的一些探索</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/calabash-setup-and-simple-use.html">Calabash Android 初始化和一些使用技巧</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/appium-chinese-input.html">Appium中文输入问题的一些探索</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/kan-wu.html">《iOS测试指南》勘误一</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ios-testframework.html">这些年用过的iOS测试框架</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/applescript-hong-fa-mo-ni-qi-nei-cun-gao-jing.html">UI Automation 中触发iOS模拟器内存警告</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/houlianpi">@houlianpi</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'houlianpi',
+            count: 4,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <ul id="weibo">
+    <li>
+      <iframe width="100%" height="200" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=200&fansRow=2&ptype=1&speed=0&skin=5&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=2644045772&verifier=eb301345&dpc=1"></iframe>
+    </li>
+  </ul>
+</section>
+<section>
+<div>
+    <script type="text/javascript" src="http://www.douban.com/service/badge/mijun/?show=collection&amp;n=2&amp;columns=3" ></script>
+</div>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - mijun(厚脸皮) -
+  <span class="credit">Powered by <a href="http://houlianpi.github.com/">厚脸皮</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
