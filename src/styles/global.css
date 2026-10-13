@@ -204,6 +204,13 @@ a {
 	line-height: 1;
 }
 
+.whoami-output h1 span {
+	color: var(--muted);
+	font-size: 0.42em;
+	font-weight: 400;
+	letter-spacing: -0.02em;
+}
+
 .whoami-output p {
 	margin: 7px 0;
 	color: var(--text);

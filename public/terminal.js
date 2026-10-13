@@ -173,7 +173,7 @@ function setupTerminal() {
 					print(`/Users/houlianpi${currentPath === "~" ? "" : currentPath.slice(1)}`);
 					break;
 				case "whoami":
-					print("houlianpi — software engineer, open-source contributor, maker");
+					print("芈峮 / houlianpi — quality engineering, automation, open source");
 					break;
 				case "date":
 					print(new Date().toString());
@@ -197,7 +197,8 @@ function setupTerminal() {
 					break;
 				case "cat readme.md":
 				case "cat readme":
-					print("I build automation tools, contribute to open source, and write down what I learn.");
+					print("芈峮，《iOS测试指南》作者，长期从事软件质量、自动化与开发者工具工作。");
+					print("Currently contributing to FSQ and AutoGenesis, and building Maat.");
 					break;
 				default:
 					print(`command not found: ${command}. Type 'help' for available commands.`, "history-error");
