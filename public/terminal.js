@@ -198,7 +198,8 @@ function setupTerminal() {
 				case "cat readme.md":
 				case "cat readme":
 					print("芈峮，《iOS测试指南》作者，长期从事软件质量、自动化与开发者工具工作。");
-					print("Currently contributing to FSQ and AutoGenesis, and building Maat.");
+					print("Exploring AI for UI Automation, Computer/Mobile Use, and AI Evaluation");
+					print("through FSQ, AutoGenesis, and Maat.");
 					break;
 				default:
 					print(`command not found: ${command}. Type 'help' for available commands.`, "history-error");
