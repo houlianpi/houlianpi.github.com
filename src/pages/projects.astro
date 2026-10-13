@@ -1,0 +1,36 @@
+---
+import Prompt from "../components/Prompt.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { projects } from "../data/projects";
+---
+
+<BaseLayout
+	title="projects — houlianpi"
+	description="houlianpi 最近参与和维护的公开项目。"
+>
+	<p class="last-login">Last login: Tue Oct 13 on ttys001</p>
+	<section class="terminal-block">
+		<Prompt path="~/projects" branch="main" command="ls -la --sort=time" />
+		<p class="command-meta">total {projects.length}</p>
+		<div class="project-terminal-list">
+			{
+				projects.map((project, index) => (
+					<a class="project-terminal-row" href={project.href} target="_blank" rel="noreferrer">
+						<div class="project-file-line">
+							<span class="permissions">drwxr-xr-x</span>
+							<span class="file-count">{index + 3}</span>
+							<span class="file-owner">{project.owner}</span>
+							<span class="file-date">{project.activity}</span>
+							<strong>{project.name}/</strong>
+						</div>
+						<p>{project.description}</p>
+						<div class="terminal-tags">
+							{project.tags.map((tag) => <span>{tag}</span>)}
+							<em># {project.contribution}</em>
+						</div>
+					</a>
+				))
+			}
+		</div>
+	</section>
+</BaseLayout>

@@ -1,0 +1,80 @@
+---
+import Prompt from "../components/Prompt.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { projects } from "../data/projects";
+
+const notes = [
+	"agent-first-tooling.md",
+	"evidence-driven-testing.md",
+	"software-that-explains-failure.md",
+	"macos-computer-use.md",
+];
+---
+
+<BaseLayout
+	title="houlianpi@localhost: ~"
+	description="houlianpi 的个人终端：项目、开源贡献与技术笔记。"
+>
+	<p class="last-login">Last login: Tue Oct 13 17:37:02 on ttys000</p>
+
+	<section class="terminal-block hero-command">
+		<Prompt command="whoami" />
+		<div class="whoami-output">
+			<img src="https://avatars.githubusercontent.com/u/1460185?v=4" alt="houlianpi" width="96" height="96" />
+			<div>
+				<h1>houlianpi</h1>
+				<p>software engineer · open-source contributor · maker</p>
+				<div class="quick-links">
+					<a href="https://github.com/houlianpi" target="_blank" rel="noreferrer">github</a>
+					<a href="/projects">projects</a>
+					<a href="/about">about</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="terminal-block">
+		<Prompt command="cat README.md" />
+		<div class="markdown-output">
+			<p>
+				<span class="md-heading">#</span> 你好，我是 houlianpi。
+			</p>
+			<p>
+				我做自动化、开发者工具和软件质量相关的工作。喜欢把模糊的问题变成可以运行、
+				可以验证的系统，也喜欢参与认真解决真实问题的开源项目。
+			</p>
+			<p>这里记录项目背后的过程，以及一路上学到的东西。</p>
+		</div>
+	</section>
+
+	<section class="terminal-block">
+		<Prompt path="~" branch="main" command="ls -lt projects/" />
+		<div class="file-list" role="list">
+			{
+				projects.map((project) => (
+					<a class="file-row" href={project.href} target="_blank" rel="noreferrer" role="listitem">
+						<span class="permissions">drwxr-xr-x</span>
+						<span class="file-owner">{project.owner}</span>
+						<span class="file-date">{project.activity}</span>
+						<strong>{project.name}/</strong>
+						<span class="file-description">{project.description}</span>
+					</a>
+				))
+			}
+		</div>
+	</section>
+
+	<section class="terminal-block">
+		<Prompt path="~" command="gh activity --limit 6" />
+		<div id="live-activity" class="live-activity">
+			<p class="activity-loading">fetching public activity from github.com...</p>
+		</div>
+	</section>
+
+	<section class="terminal-block">
+		<Prompt path="~" command="find notes -maxdepth 1 -type f" />
+		<ul class="terminal-files">
+			{notes.map((note) => <li><a href="/writing">./notes/{note}</a></li>)}
+		</ul>
+	</section>
+</BaseLayout>

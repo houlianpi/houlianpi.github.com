@@ -1,0 +1,38 @@
+---
+import Prompt from "../components/Prompt.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+	title="about — houlianpi"
+	description="关于 houlianpi：软件工程师、开源贡献者和工具创造者。"
+>
+	<p class="last-login">Last login: Tue Oct 13 on ttys003</p>
+
+	<section class="terminal-block">
+		<Prompt path="~/about" command="cat about.md" />
+		<article class="about-terminal markdown-output">
+			<h1><span class="md-heading">#</span> 关于我</h1>
+			<p>
+				我是一名软件工程师，做过移动端测试、自动化和开发者工具。
+				我喜欢研究复杂系统是怎么工作的，也喜欢亲手做一些能解决实际问题的小工具。
+			</p>
+			<p>
+				最近的工作集中在自动化和智能工具上：让软件理解目标、操作真实环境，
+				并把执行过程清楚地记录下来。
+			</p>
+			<p>这个网站用来存放项目、笔记、失败经验，以及那些还没有标准答案的问题。</p>
+
+			<h2><span class="md-heading">##</span> 一些原则</h2>
+			<ul>
+				<li><strong>先构建，再讨论。</strong> 能够运行的原型比完美的概念更接近答案。</li>
+				<li><strong>让证据说话。</strong> 可靠的自动化应该留下清楚、可追踪的记录。</li>
+				<li><strong>开放地学习。</strong> 记录过程，让知识在分享和反馈中继续生长。</li>
+			</ul>
+
+			<p>
+				<a href="https://github.com/houlianpi" target="_blank" rel="noreferrer">[ 在 GitHub 找到我 ]</a>
+			</p>
+		</article>
+	</section>
+</BaseLayout>

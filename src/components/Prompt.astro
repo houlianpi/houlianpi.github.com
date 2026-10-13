@@ -1,0 +1,20 @@
+---
+interface Props {
+	path?: string;
+	branch?: string;
+	command: string;
+}
+
+const { path = "~", branch, command } = Astro.props;
+---
+
+<div class="prompt-line">
+	<span class="prompt-arrow">➜</span>
+	<span class="prompt-path">{path}</span>
+	{branch && (
+		<span class="prompt-branch">
+			git:(<strong>{branch}</strong>)
+		</span>
+	)}
+	<span class="prompt-command">{command}</span>
+</div>

@@ -1,0 +1,95 @@
+---
+import "../styles/global.css";
+
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+const currentPath = Astro.url.pathname;
+const navItems = [
+	{ href: "/", label: "~", key: "1" },
+	{ href: "/writing", label: "~/writing", key: "2" },
+	{ href: "/projects", label: "~/projects", key: "3" },
+	{ href: "/about", label: "~/about", key: "4" },
+];
+
+const isActive = (href: string) =>
+	href === "/" ? currentPath === href : currentPath.startsWith(href);
+const displayPath = currentPath === "/" ? "~" : `~${currentPath.replace(/\/$/, "")}`;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<meta name="theme-color" content="#103f48" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url} />
+		<link rel="canonical" href={Astro.url} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>{title}</title>
+	</head>
+	<body>
+		<header class="terminal-chrome">
+			<div class="window-bar">
+				<div class="traffic-lights" aria-hidden="true">
+					<span class="close"></span>
+					<span class="minimize"></span>
+					<span class="maximize"></span>
+				</div>
+				<div class="window-title">
+					<span aria-hidden="true">📁</span>
+					<span>.../Documents/houlianpi</span>
+				</div>
+			</div>
+			<nav class="tab-bar" aria-label="主导航">
+				{
+					navItems.map((item) => (
+						<a class:list={["terminal-tab", { active: isActive(item.href) }]} href={item.href}>
+							<span>{item.label}</span>
+							<kbd>⌘{item.key}</kbd>
+						</a>
+					))
+				}
+				<div class="current-directory">{displayPath}</div>
+			</nav>
+		</header>
+
+		<main class="terminal-main">
+			<slot />
+		</main>
+
+		<footer class="terminal-footer">
+			<div id="command-output" class="command-output" aria-live="polite"></div>
+			<form id="terminal-form" class="terminal-form" data-current-path={displayPath} autocomplete="off">
+				<label for="terminal-input" class="prompt-line">
+					<span class="prompt-arrow">➜</span>
+					<span class="prompt-path">{displayPath}</span>
+				</label>
+				<input
+					id="terminal-input"
+					name="command"
+					type="text"
+					aria-label="输入终端命令"
+					autocapitalize="off"
+					autocomplete="off"
+					autocorrect="off"
+					spellcheck="false"
+				/>
+			</form>
+			<div class="terminal-status">
+				<span>type <strong>help</strong> to begin</span>
+				<span>© {new Date().getFullYear()} houlianpi · session active</span>
+			</div>
+		</footer>
+
+		<script src="/terminal.js" defer is:inline></script>
+	</body>
+</html>
